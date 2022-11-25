@@ -72,9 +72,33 @@ class LocalBP(BranchPredictor):
     cxx_class = 'gem5::branch_prediction::LocalBP'
     cxx_header = "cpu/pred/2bit_local.hh"
 
-    localPredictorSize = Param.Unsigned(2048, "Size of local predictor")
+    localPredictorSize = Param.Unsigned(256, "Size of local predictor")
     localCtrBits = Param.Unsigned(2, "Bits per counter")
 
+class StaticPred(BranchPredictor):
+    type = 'StaticPred'
+    cxx_class = 'gem5::branch_prediction::StaticPred'
+    cxx_header = "cpu/pred/StaticPredictor.hh"
+
+class GApPred(BranchPredictor):
+    type = 'GApPred'
+    cxx_class = 'gem5::branch_prediction::GApPred'
+    cxx_header = "cpu/pred/GApPredictor.hh"
+
+    historySize = Param.Unsigned(5, "Size of global history register")
+    ptableHeight = Param.Unsigned(32, "Height of per-branch table")
+    ptableWidth = Param.Unsigned(32, "Width of per-branch table")
+    predSize = Param.Unsigned(2, "Width of predictor")
+
+class PAgPred(BranchPredictor):
+    type = 'PAgPred'
+    cxx_class = 'gem5::branch_prediction::PAgPred'
+    cxx_header = "cpu/pred/PAgPredictor.hh"
+
+    ltableHeight = Param.Unsigned(256, "Height of 1st level local table")
+    lhistoryWidth = Param.Unsigned(5, "Size of local history")
+    gtableHeight = Param.Unsigned(32, "Height of 2nd level global table")
+    gpredSize = Param.Unsigned(2, "Width of predictor")
 
 class TournamentBP(BranchPredictor):
     type = 'TournamentBP'

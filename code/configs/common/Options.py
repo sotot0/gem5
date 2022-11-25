@@ -107,11 +107,11 @@ def addNoISAOptions(parser):
     parser.add_argument("--sys-voltage", action="store", type=str,
                         default='1.0V',
                         help="""Top-level voltage for blocks running at system
-                      power supply""")
+                        power supply""")
     parser.add_argument("--sys-clock", action="store", type=str,
                         default='1GHz',
                         help="""Top-level clock for blocks running at system
-                      speed""")
+                        speed""")
 
     # Memory Options
     parser.add_argument("--list-mem-types",
@@ -124,9 +124,8 @@ def addNoISAOptions(parser):
                         help="number of memory channels")
     parser.add_argument("--mem-ranks", type=int, default=None,
                         help="number of memory ranks per channel")
-    parser.add_argument(
-        "--mem-size", action="store", type=str, default="512MB",
-        help="Specify the physical memory size (single memory)")
+    parser.add_argument("--mem-size", action="store", type=str, default="8192MB",
+                        help="Specify the physical memory size (single memory)")
     parser.add_argument("--enable-dram-powerdown", action="store_true",
                         help="Enable low-power states in DRAMInterface")
     parser.add_argument("--mem-channels-intlv", type=int, default=0,
@@ -193,9 +192,32 @@ def addCommonOptions(parser):
     parser.add_argument("--cpu-type", default="AtomicSimpleCPU",
                         choices=ObjectList.cpu_list.get_names(),
                         help="type of cpu to run with")
+    parser.add_argument("--rp-type", default=None,
+                        choices=ObjectList.rp_list.get_names(),
+                        help="type of replacement policy to run with")
     parser.add_argument("--list-bp-types",
                         action=ListBp, nargs=0,
                         help="List available branch predictor types")
+
+    parser.add_argument("--ghr_size", type=int, default=2)
+    parser.add_argument("--pt_size", type=int, default=4)
+
+    parser.add_argument("--history_size", type=int, default=2)
+    parser.add_argument("--ptable_height", type=int, default=4)
+    parser.add_argument("--ptable_width", type=int, default=16)
+    parser.add_argument("--pred_size", type=int, default=2)
+
+    parser.add_argument("--local_predictor_size", type=int, default=2048)
+    parser.add_argument("--local_ctr_bits", type=int, default=2)
+
+    parser.add_argument("--ltable_height", type=int, default=2048)
+    parser.add_argument("--lhistory_width", type=int, default=5)
+    parser.add_argument("--gtable_height", type=int, default=32)
+    parser.add_argument("--gpred_size", type=int, default=2)
+
+    parser.add_argument("--btb_entries", type=int, default=2048)
+    parser.add_argument("--ras_size", type=int, default=2048)
+
     parser.add_argument("--list-indirect-bp-types",
                         action=ListIndirectBP, nargs=0,
                         help="List available indirect branch predictor types")
