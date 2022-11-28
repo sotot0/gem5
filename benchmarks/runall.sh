@@ -27,7 +27,7 @@ then
         export BENCHMARK=./benchmark5/bin/benchmark
         time $GEM5_DIR/build/X86/gem5.opt -d ./benchmark5/m5out_$1_$2_BTB:$3 $GEM5_DIR/configs/cs425_pa1/cs425_pa1.py  -c $BENCHMARK -o "20 reference.dat 0 1 ./benchmark5/data/100_100_130_cf_a.of" -I $MAX_INSTS --cpu-type=$1 --l1d_size='32kB' --l1d_assoc='4' --bp-type=$2 --btb_entries=$3
         echo "-------------------------------------------------------"
-    elif [ "$1" = "LocalBP" ]
+    elif [ "$2" = "LocalBP" ]
     then
         export BENCHMARK=./benchmark1/bin/benchmark
         export ARGUMENT=./benchmark1/data/input.program
@@ -48,7 +48,7 @@ then
         export BENCHMARK=./benchmark5/bin/benchmark
         time $GEM5_DIR/build/X86/gem5.opt -d ./benchmark5/m5out_$1_$2_BTB:$3_lpredSize:$4_predBits:$5 $GEM5_DIR/configs/cs425_pa1/cs425_pa1.py  -c $BENCHMARK -o "20 reference.dat 0 1 ./benchmark5/data/100_100_130_cf_a.of" -I $MAX_INSTS --cpu-type=$1 --l1d_size='32kB' --l1d_assoc='4' --bp-type=$2 --btb_entries=$3 --local_predictor_size=$4 --local_ctr_bits=$5
         echo "-------------------------------------------------------"
-    elif [ "$1" = "GApPred" ]
+    elif [ "$2" = "GApPred" ]
     then
         export BENCHMARK=./benchmark1/bin/benchmark
         export ARGUMENT=./benchmark1/data/input.program
@@ -69,7 +69,7 @@ then
         export BENCHMARK=./benchmark5/bin/benchmark
         time $GEM5_DIR/build/X86/gem5.opt -d ./benchmark5/m5out_$1_$2_BTB:$3_histSize:$4_height:$5_width:$6_predBits:$7 $GEM5_DIR/configs/cs425_pa1/cs425_pa1.py  -c $BENCHMARK -o "20 reference.dat 0 1 ./benchmark5/data/100_100_130_cf_a.of" -I $MAX_INSTS --cpu-type=$1 --l1d_size='32kB' --l1d_assoc='4' --bp-type=$2 --btb_entries=$3 --history_size=$4 --ptable_height=$5 --ptable_width=$6 --pred_size=$7
         echo "-------------------------------------------------------"
-    elif [ "$1" = "PAgPred" ]
+    elif [ "$2" = "PAgPred" ]
     then
         export BENCHMARK=./benchmark1/bin/benchmark
         export ARGUMENT=./benchmark1/data/input.program
