@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export GEM5_DIR=../code
+export GEM5_DIR=..
 
 MAX_INSTS=50000000
 
