@@ -124,9 +124,8 @@ def addNoISAOptions(parser):
                         help="number of memory channels")
     parser.add_argument("--mem-ranks", type=int, default=None,
                         help="number of memory ranks per channel")
-    parser.add_argument(
-        "--mem-size", action="store", type=str, default="512MB",
-        help="Specify the physical memory size (single memory)")
+    parser.add_argument("--mem-size", action="store", type=str, default="8192MB",
+                        help="Specify the physical memory size (single memory)")
     parser.add_argument("--enable-dram-powerdown", action="store_true",
                         help="Enable low-power states in DRAMInterface")
     parser.add_argument("--mem-channels-intlv", type=int, default=0,
@@ -144,15 +143,18 @@ def addNoISAOptions(parser):
     parser.add_argument("--num-dirs", type=int, default=1)
     parser.add_argument("--num-l2caches", type=int, default=1)
     parser.add_argument("--num-l3caches", type=int, default=1)
-    parser.add_argument("--l1d_size", type=str, default="64kB")
+    # custom parameters for the cache subsystem
+    parser.add_argument("--l1d_size", type=str, default="32kB")
     parser.add_argument("--l1i_size", type=str, default="32kB")
-    parser.add_argument("--l2_size", type=str, default="2MB")
+    parser.add_argument("--l2_size", type=str, default="128kB")
     parser.add_argument("--l3_size", type=str, default="16MB")
-    parser.add_argument("--l1d_assoc", type=int, default=2)
-    parser.add_argument("--l1i_assoc", type=int, default=2)
-    parser.add_argument("--l2_assoc", type=int, default=8)
+    parser.add_argument("--l1d_assoc", type=int, default=1)
+    parser.add_argument("--l1i_assoc", type=int, default=4)
+    parser.add_argument("--l2_assoc", type=int, default=4)
     parser.add_argument("--l3_assoc", type=int, default=16)
-    parser.add_argument("--cacheline_size", type=int, default=64)
+    parser.add_argument("--cacheline_size", type=int, default=32)
+    parser.add_argument("--clusivity", type=str)
+    parser.add_argument("--pref_degree", type=int, default=1)
 
     # Enable Ruby
     parser.add_argument("--ruby", action="store_true")
@@ -193,9 +195,68 @@ def addCommonOptions(parser):
     parser.add_argument("--cpu-type", default="AtomicSimpleCPU",
                         choices=ObjectList.cpu_list.get_names(),
                         help="type of cpu to run with")
+    parser.add_argument("--rp-type", default=None,
+                        choices=ObjectList.rp_list.get_names(),
+                        help="type of replacement policy to run with")
     parser.add_argument("--list-bp-types",
                         action=ListBp, nargs=0,
                         help="List available branch predictor types")
+
+    # Branch predictor wrappers for cs425 -- pa1
+    parser.add_argument("--ghr_size", type=int, default=2)
+    parser.add_argument("--pt_size", type=int, default=4)
+
+    parser.add_argument("--history_size", type=int, default=2)
+    parser.add_argument("--ptable_height", type=int, default=4)
+    parser.add_argument("--ptable_width", type=int, default=16)
+    parser.add_argument("--pred_size", type=int, default=2)
+
+    parser.add_argument("--local_predictor_size", type=int, default=2048)
+    parser.add_argument("--local_ctr_bits", type=int, default=2)
+
+    parser.add_argument("--ltable_height", type=int, default=2048)
+    parser.add_argument("--lhistory_width", type=int, default=5)
+    parser.add_argument("--gtable_height", type=int, default=32)
+    parser.add_argument("--gpred_size", type=int, default=2)
+
+    parser.add_argument("--btb_entries", type=int, default=2048)
+    parser.add_argument("--ras_size", type=int, default=2048)
+    #-------------------------------------------------------
+
+    # Out-of-Order CPU wrapper for cs425 -- pa2
+    parser.add_argument("--LSQ_Entries", type=int, default=8)
+    parser.add_argument("--numPhys_Regs", type=int, default=256)
+    parser.add_argument("--numROB_Entries", type=int, default=256)
+
+    parser.add_argument("--int_latency", type=int, default=2)
+    parser.add_argument("--int_pipelined", type=int, default=1)
+    parser.add_argument("--num_int_FUs", type=int, default=6)
+
+    parser.add_argument("--mult_latency", type=int, default=3)
+    parser.add_argument("--mult_pipelined", type=int, default=1)
+    parser.add_argument("--div_latency", type=int, default=15)
+    parser.add_argument("--div_pipelined", type=int, default=0)
+    parser.add_argument("--num_complex_FUs", type=int, default=2)
+
+    parser.add_argument("--read_latency", type=int, default=4)
+    parser.add_argument("--float_read_latency", type=int, default=5)
+    parser.add_argument("--num_ls_FUs", type=int, default=3)
+
+    parser.add_argument("--write_latency", type=int, default=4)
+    parser.add_argument("--float_write_latency", type=int, default=5)
+
+    parser.add_argument("--fadd_latency", type=int, default=2)
+    parser.add_argument("--fcmp_latency", type=int, default=2)
+    parser.add_argument("--fdiv_latency", type=int, default=20)
+    parser.add_argument("--fdiv_pipelined", type=int, default=0)
+    parser.add_argument("--fsqrt_latency", type=int, default=40)
+    parser.add_argument("--fsqrt_pipelined", type=int, default=0)
+    parser.add_argument("--fmult_latency", type=int, default=10)
+    parser.add_argument("--fmult_pipelined", type=int, default=1)
+    parser.add_argument("--num_float_FUs", type=int, default=2)
+    #-------------------------------------------------------
+    
+
     parser.add_argument("--list-indirect-bp-types",
                         action=ListIndirectBP, nargs=0,
                         help="List available indirect branch predictor types")
