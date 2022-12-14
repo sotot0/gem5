@@ -1,0 +1,10 @@
+You have to give the specified command below:
+
+./runall.sh <LOAD/STORE QUEUE ENTRIES> <ROB ENTRIES> <NUMBER OF INT FUs> <NUMBER OF COMPLEX INT FUs> <NUMBER OF FLOATING POINT FUs> <NUMBER OF LOAD/STORE FUs>
+
+For example this instruction simulates the core with 8 LSQ_ENTRIES, 16 ROB_ENTRIES, 2 INT_FUs, 2 COM_FUs, 2 FP_FUs and 1 LS_FU:
+
+./runall.sh 8 16 2 2 2 1
+
+Giving no parameters at all means that you simulate the core with the default values
+
