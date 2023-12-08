@@ -4,8 +4,8 @@ export GEM5_DIR=..
 
 MAX_INSTS=50000000
 
-LSQ_ENTRIES=8
-ROB_ENTRIES=16
+LSQ_ENTRIES=16
+ROB_ENTRIES=64
 INT_FU=2
 COM_FU=2
 FP_FU=2
@@ -54,4 +54,3 @@ echo "-------------------------------------------------------"
 export BENCHMARK=./benchmark5/bin/benchmark
 time $GEM5_DIR/build/X86/gem5.opt -d ./benchmark5/m5out_LSQ:$LSQ_ENTRIES._ROB:$ROB_ENTRIES._IFU:$INT_FU._CFU:$COM_FU._FFU:$FP_FU._LSFU:$LS_FU $GEM5_DIR/configs/cs425_pa2/cs425_pa2.py -c $BENCHMARK -o "20 reference.dat 0 1 ./benchmark5/data/100_100_130_cf_a.of" -I $MAX_INSTS --cpu-type='O3CPU' --l1i_size='64kB' --l1i_assoc='4' --l1d_size='64kB' --l1d_assoc='4' --l2_size='256kB' --l2_assoc='8' --bp-type='TournamentBP' --btb_entries='1024' --LSQ_Entries=$LSQ_ENTRIES --numROB_Entries=$ROB_ENTRIES --num_int_FUs=$INT_FU --num_complex_FUs=$COM_FU --num_ls_FUs=$LS_FU --num_float_FUs=$FP_FU
 echo "-------------------------------------------------------"
-
