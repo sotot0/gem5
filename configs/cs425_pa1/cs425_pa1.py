@@ -50,7 +50,7 @@ system.mem_ranges = [AddrRange(options.mem_size)]
 
 if options.bp_type == "StaticPred":
     system.cpu.branchPred = StaticPredPar(options)
-elif options.bp_type == "GagPred":
+elif options.bp_type == "GAgPred":
     system.cpu.branchPred = GAgPar(options)
 elif options.bp_type == "LocalBP":
     system.cpu.branchPred = LocalBPPar(options)
