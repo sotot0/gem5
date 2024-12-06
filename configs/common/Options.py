@@ -275,7 +275,7 @@ def addCommonOptions(parser):
     parser.add_argument("--ras_size", type=int, default=2048)
     # -------------------------------------------------------
 
-    # Out-of-Order CPU wrapper for cs425 -- pa2
+    # Out-of-Order CPU wrapper for cs425 -- sim2
     parser.add_argument("--LSQ_Entries", type=int, default=16)
     parser.add_argument("--numPhys_Regs", type=int, default=256)
     parser.add_argument("--numROB_Entries", type=int, default=64)
